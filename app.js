@@ -49,8 +49,8 @@ io.on('connection', (socket) => {
     //if( message === undefined) return
     io.emit("cozinhaPedido", pedido)
   });
-  socket.on("pedidoCancelado", (pedido) => {
-    io.emit("cozinhaCancelado", pedido.id, pedido.status_pedido )
+  socket.on("pedidoCancelado",() => {
+    io.emit("cozinhaCancelado")
   })
 });
 
