@@ -7,9 +7,9 @@ const http = require('http')
 var cors = require('cors')
 
 var app = express();
-const server = http.createServer(app)
+//const server = http.createServer(app)
 const { Server } = require("socket.io")
-const io = new Server(server, {
+const io = new Server({
   cors: {
     origin: '*',
   }
@@ -45,12 +45,15 @@ app.use(function(err, req, res, next) {
 
 io.on('connection', (socket) => {
   console.log("connected")
-  socket.on("pedidoRealizado", (message) => {
+  socket.on("pedidoRealizado", (pedido) => {
     //if( message === undefined) return
-    console.log(message)
+    io.emit("cozinhaPedido", pedido)
   });
+  socket.on("pedidoCancelado", (pedido) => {
+    io.emit("cozinhaCancelado", pedido.id, pedido.status_pedido )
+  })
 });
 
-server.listen(3000)
+io.listen(3000)
 
 module.exports = app;
