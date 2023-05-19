@@ -45,13 +45,20 @@ app.use(function(err, req, res, next) {
 
 io.on('connection', (socket) => {
   console.log("connected")
+
   socket.on("pedidoRealizado", (pedido) => {
     //if( message === undefined) return
     io.emit("cozinhaPedido", pedido)
   });
+
   socket.on("pedidoCancelado",() => {
     io.emit("cozinhaCancelado")
   })
+
+  socket.on("cozinhaStatus", () => {
+    io.emit("alterarStatus")
+  })
+
 });
 
 io.listen(3000)
