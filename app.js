@@ -42,7 +42,6 @@ app.use(function(err, req, res, next) {
 });
 
 io.on('connection', (socket) => {
-  console.log("connected")
 
   socket.on("pedidoRealizado", () => {
     io.emit("cozinhaPedido")
@@ -54,6 +53,10 @@ io.on('connection', (socket) => {
 
   socket.on("cozinhaStatus", () => {
     io.emit("alterarStatus")
+  })
+
+  socket.on("recebimentoConfirmado", () => {
+    io.emit("confStatus")
   })
 
 });
