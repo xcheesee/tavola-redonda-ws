@@ -44,8 +44,8 @@ app.use(function(err, req, res, next) {
 io.on('connection', (socket) => {
   console.log("connected")
 
-  socket.on("pedidoRealizado", (pedido) => {
-    io.emit("cozinhaPedido", pedido)
+  socket.on("pedidoRealizado", () => {
+    io.emit("cozinhaPedido")
   });
 
   socket.on("pedidoCancelado",() => {
@@ -58,6 +58,6 @@ io.on('connection', (socket) => {
 
 });
 
-io.listen(3000)
+io.listen(8000)
 
 module.exports = app;
